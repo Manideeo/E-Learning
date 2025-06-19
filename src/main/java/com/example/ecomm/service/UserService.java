@@ -34,8 +34,13 @@ public class UserService {
 	@Autowired
 	EnrollmentDao enrollmentDao;
 
-	public User saveUser(User user) {
-		return dao.saveUser(user);
+	public ResponseEntity<ResponseStructure<User>> saveUser(User user) {
+		ResponseStructure<User> structure = new ResponseStructure<User>();
+		
+		structure.setMsg("account created successfully!!");
+		structure.setData(dao.saveUser(user));
+		structure.setStatusCode(HttpStatus.OK.value());
+		return new ResponseEntity<ResponseStructure<User>>(structure, HttpStatus.OK);
 	}
 
 	public ResponseEntity<ResponseStructure<User>> login(String email, String password) {
